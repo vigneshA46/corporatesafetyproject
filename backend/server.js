@@ -11,6 +11,7 @@ const deleteuser = require('./routes/deleteuser');
 const reportapi = require('./routes/reportapi');
 const getreports = require('./routes/getreports');
 const dashboarddata = require('./routes/dashboarddata');
+const sendemails = require('./routes/sendemail');
 const app = express();
 const PORT = 3000;
 app.use(cors({
@@ -70,6 +71,7 @@ app.use("/",deleteuser);
 app.use("/",reportapi);
 app.use("/",getreports);
 app.use("/",dashboarddata);
+app.use("/",sendemails);
 
 
 // Close the database connection on exit
