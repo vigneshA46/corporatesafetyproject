@@ -20,3 +20,37 @@ associate - associate - associate
 manager - manager - manager
 executive - executive - executive
 admin - admin - admin
+
+
+// Check office leave route
+router.post("/check-office-leave", (req, res) => {
+  if (!isWorkingHours()) return res.json({ message: "Outside working hours." });
+
+  const query = `SELECT userId, latitude, longitude FROM location ORDER BY timestamp DESC`;
+
+  db.all(query, [], (err, rows) => {
+    if (err) return res.status(500).json({ error: "DB error" });
+
+    const latest = {};
+    for (const row of rows) {
+      if (!latest[row.userId]) latest[row.userId] = row;
+    }
+
+    const notifications = [];
+
+    // Check if employees are inside the office during working hours
+    for (const userId in latest) {
+      const { latitude, longitude } = latest[userId];
+      const distance = getDistanceFromLatLonInKm(latitude, longitude, OFFICE_LAT, OFFICE_LNG);
+
+      if (distance > 0.1) {
+        notifications.push({
+          userId,
+          message: `🚨 ALERT: Employee ${userId} left office during working hours.`
+        });
+      }
+    }
+
+    res.json({ notifications });
+  });
+});

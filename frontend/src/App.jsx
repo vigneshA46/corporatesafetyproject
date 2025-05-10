@@ -14,12 +14,14 @@ import Dashboard from './pages/Dashboard';
 import Associatereport from './pages/Associatereport';
 import Executivereport from './pages/Executivereport';
 import Managerreport from './pages/Managerreport';
+import GlobalLocationChecker from '../components/GlobalLocationChecker';
 
 
 function App() {
 
   return (
    <Router>
+    <GlobalLocationChecker />
     <Routes>
       <Route path='/' element={<Login/>} />
       <Route path='/user' element={<UserManagement/>} />

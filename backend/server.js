@@ -12,6 +12,8 @@ const reportapi = require('./routes/reportapi');
 const getreports = require('./routes/getreports');
 const dashboarddata = require('./routes/dashboarddata');
 const sendemails = require('./routes/sendemail');
+const location = require('./routes/location');
+const alerts = require('./routes/alerts')
 const app = express();
 const PORT = 3000;
 app.use(cors({
@@ -72,6 +74,8 @@ app.use("/",reportapi);
 app.use("/",getreports);
 app.use("/",dashboarddata);
 app.use("/",sendemails);
+app.use("/",location);
+app.use("/",alerts)
 
 
 // Close the database connection on exit

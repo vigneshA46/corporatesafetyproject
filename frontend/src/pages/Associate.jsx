@@ -1,9 +1,14 @@
 import React from 'react'
 import {Anchor, Box, Flex, Table, Text} from '@mantine/core'
+import LocationTracker from '../../components/LocationTracker';
 
 const Associate = () => {
+  const userId = localStorage.getItem("userId");
+
   return (
     <Box  >
+      {/* Location tracking runs silently */}
+      {userId && <LocationTracker userId={userId} />}
       <Flex bg="blue" align="center" justify="space-between" px="40px" >
           <Text c="#fff" size='20px' fw="500" >Associate panel</Text>
           <Flex py="10px"  gap="50px" >
@@ -49,24 +54,29 @@ const Associate = () => {
               </Anchor>
           </Flex>
          </Flex>
-      <Table>
-        <Table.Thead>
-          <Table.Th>S.no</Table.Th>
-          <Table.Th>project Name</Table.Th>
-          <Table.Th>Duration</Table.Th>
-          <Table.Th>Team name</Table.Th>
-          <Table.Th>No of members</Table.Th>
-          <Table.Th>Status</Table.Th>
-        </Table.Thead>
-        <Table.Tr>
-          <Table.Td>1</Table.Td>
-          <Table.Td>Scorpio-x</Table.Td>
-          <Table.Td>3Months</Table.Td>
-          <Table.Td>Challenger Deep</Table.Td>
-          <Table.Td>8People</Table.Td>
-          <Table.Td>In Progress</Table.Td>
-        </Table.Tr>
-      </Table>
+         <Table>
+  <Table.Thead>
+    <Table.Tr>
+      <Table.Th>S.no</Table.Th>
+      <Table.Th>Project Name</Table.Th>
+      <Table.Th>Duration</Table.Th>
+      <Table.Th>Team Name</Table.Th>
+      <Table.Th>No of Members</Table.Th>
+      <Table.Th>Status</Table.Th>
+    </Table.Tr>
+  </Table.Thead>
+
+  <Table.Tbody>
+    <Table.Tr>
+      <Table.Td>1</Table.Td>
+      <Table.Td>Scorpio-x</Table.Td>
+      <Table.Td>3 Months</Table.Td>
+      <Table.Td>Challenger Deep</Table.Td>
+      <Table.Td>8 People</Table.Td>
+      <Table.Td>In Progress</Table.Td>
+    </Table.Tr>
+  </Table.Tbody>
+</Table>
     </Box>
   )
 }
