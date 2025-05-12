@@ -5,8 +5,8 @@ const sqlite3 = require("sqlite3").verbose();
 const router = express.Router();
 const db = new sqlite3.Database("./corporatedatabase.db");
 
-const OFFICE_LAT = 11.2333;  // Perambalur
-const OFFICE_LNG = 78.8833;
+const OFFICE_LAT = 11.2407917;  // Perambalur
+const OFFICE_LNG =  78.8382692;
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const R = 6371;

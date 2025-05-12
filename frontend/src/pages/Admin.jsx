@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {Anchor, Box, Button, Card, Flex, Stack, Table, Text, UnstyledButton} from '@mantine/core'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { disasternotification } from '../../components/disasternotification';
 
 
 const Admin = () => {
@@ -102,6 +103,7 @@ const Admin = () => {
           <Text c="#fff">Reports</Text>
           </Flex>
         </Anchor>
+        <Button bg="#fff" c="red" onClick={()=>disasternotification("disaster near your location evacuate immediately")} >Disaster</Button>
     </Flex>
    </Flex>
   <Box  mx={50} mt={30}>

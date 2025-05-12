@@ -13,7 +13,8 @@ const getreports = require('./routes/getreports');
 const dashboarddata = require('./routes/dashboarddata');
 const sendemails = require('./routes/sendemail');
 const location = require('./routes/location');
-const alerts = require('./routes/alerts')
+const alerts = require('./routes/alerts');
+const safetyalerts = require('./routes/safety-alerts')
 const app = express();
 const PORT = 3000;
 app.use(cors({
@@ -75,7 +76,8 @@ app.use("/",getreports);
 app.use("/",dashboarddata);
 app.use("/",sendemails);
 app.use("/",location);
-app.use("/",alerts)
+app.use("/",alerts);
+app.use("/",safetyalerts)
 
 
 // Close the database connection on exit
