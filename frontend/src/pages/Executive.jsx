@@ -1,10 +1,32 @@
 import React from 'react'
-import {Anchor, Box,Flex,Table, Text} from '@mantine/core'
+import {Anchor, Box,Button,Flex,Table, Text} from '@mantine/core'
+import { useState } from 'react';
+import { usesosAlarm } from '../../components/usesosAlarm';
+import { disasternotification } from '../../components/disasternotification';
+import axios from 'axios';
 
 const Executive = () => {
+   const {playAlarm , stopAlarm} = usesosAlarm();
+    const [isAlarmActive, setIsAlarmActive] = useState(false);  
+     const handleClick = () => {
+        if (isAlarmActive) {
+          stopAlarm();
+        } else {
+          playAlarm();
+          disasternotification("Urgent : I got an emrgency save my soul");
+          axios.post("http://localhost:3000/send-sos-mail",{       
+  subject: "SOS Alert",
+  message: "Emergency : SOS alert Save our souls",
+  id: userId
+        })
+        }
+        setIsAlarmActive((prev) => !prev);
+      };
   return (
     <Box>
       <Box>
+
+
         <Flex bg="blue" align="center" justify="space-between" px="40px" >
                   <Text c="#fff" size='20px' fw="500" >Executive panel</Text>
                   <Flex py="10px"  gap="50px" >
@@ -48,6 +70,16 @@ const Executive = () => {
                         <Text c="#fff">Report an issue</Text>
                         </Flex>
                       </Anchor>
+                       <Button
+                              c={isAlarmActive ? "red" : "orange"}
+                              onClick={handleClick}
+                              size="sm"
+                              radius="md"
+                              variant="filled"
+                              bg="#fff"
+                              >
+                            {isAlarmActive ? "Stop SOS" : "SOS emergency"}
+                          </Button>     
                   </Flex>
                  </Flex>
       </Box>

@@ -1,7 +1,27 @@
-import { Anchor, Box, Card, Flex, Table, Text } from '@mantine/core'
+import { Anchor, Box, Button, Card, Flex, Table, Text } from '@mantine/core'
+import { useState } from 'react';
+import { usesosAlarm } from '../../components/usesosAlarm';
+import { disasternotification } from '../../components/disasternotification';
 import React from 'react'
+import axios from 'axios';
 
 const Manager = () => {
+  const {playAlarm , stopAlarm} = usesosAlarm();
+    const [isAlarmActive, setIsAlarmActive] = useState(false);  
+     const handleClick = () => {
+        if (isAlarmActive) {
+          stopAlarm();
+        } else {
+          playAlarm();
+          disasternotification("Urgent : I got an emrgency save my soul");
+          axios.post("http://localhost:3000/send-sos-mail",{       
+  subject: "SOS Alert",
+  message: "Emergency : SOS alert Save our souls",
+  id: userId
+        })
+        }
+        setIsAlarmActive((prev) => !prev);
+      };
 
   const data = [
     { sno: 1, project: 'AI Chatbot', teamname: 'Alpha Squad', teamlead: 'John Doe', status: 'In Progress' },
@@ -63,6 +83,16 @@ const Manager = () => {
                         <Text c="#fff">Report an issue</Text>
                         </Flex>
                       </Anchor>
+                      <Button
+                              c={isAlarmActive ? "red" : "orange"}
+                              onClick={handleClick}
+                              size="sm"
+                              radius="md"
+                              variant="filled"
+                              bg="#fff"
+                              >
+                            {isAlarmActive ? "Stop SOS" : "SOS emergency"}
+                          </Button> 
                   </Flex>
                  </Flex>
       </Box>

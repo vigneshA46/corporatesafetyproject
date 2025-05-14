@@ -3,14 +3,29 @@ import {Anchor, Box, Button, Card, Flex, Stack, Table, Text, UnstyledButton} fro
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { disasternotification } from '../../components/disasternotification';
-
+import {useAlarm} from '../../components/useAlarm'
 
 const Admin = () => {
-
+    const [isAlarmActive, setIsAlarmActive] = useState(false);
+    const {playAlarm , stopAlarm} = useAlarm();
   const navigate = useNavigate();
   const adduser = ()=>{
       navigate('/userform')
   }
+  const handleClick = () => {
+    if (isAlarmActive) {
+      stopAlarm();
+    } else {
+      // 2. Send Email Notification
+      axios.post("http://localhost:3000/send-alert-mail", {
+          subject: "🚨 Disaster Alert: Urgent Attention Needed",
+          message: "eacuate immedietly disaster is happenin...",
+        });
+      playAlarm();
+      disasternotification("Urgent : Evacuate immediately disaster");
+    }
+    setIsAlarmActive((prev) => !prev);
+  };
 
   const [data,setdata] = useState([]);
 
@@ -103,8 +118,17 @@ const Admin = () => {
           <Text c="#fff">Reports</Text>
           </Flex>
         </Anchor>
-        <Button bg="#fff" c="red" onClick={()=>disasternotification("disaster near your location evacuate immediately")} >Disaster</Button>
-    </Flex>
+       <Button
+        c={isAlarmActive ? "red" : "orange"}
+        onClick={handleClick}
+        size="sm"
+        radius="md"
+        variant="filled"
+        bg="#fff"
+        >
+      {isAlarmActive ? "Stop Alarm" : "Disaster"}
+    </Button> 
+       </Flex>
    </Flex>
   <Box  mx={50} mt={30}>
   <Table>
